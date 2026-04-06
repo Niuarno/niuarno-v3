@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import styled from 'styled-components';
+/* eslint-disable @typescript-eslint/no-namespace */
 
 const StyledWrapper = styled.div`
   .bb8-toggle {

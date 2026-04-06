@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,16 @@ const techPills = [
   'React.js', 'Node.js', 'Docker', 'CI/CD', 'PHP', 'Python', 'Java', 'JavaScript', 'MongoDB', 'MySQL',
 ];
 
-const SplineScene = React.lazy(() => import('@splinetool/react-spline'));
+const SplineScene = dynamic(
+  () => import('@splinetool/react-spline').then((mod) => {
+    const Spline = mod.default || mod.Spline;
+    return { default: Spline };
+  }),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-gradient-to-br from-[#0a0a0f] via-[#0d1117] to-[#0a0a0f]" />,
+  }
+);
 
 export function HeroSection() {
   return (
@@ -19,11 +29,7 @@ export function HeroSection() {
     >
       {/* 3D Spline Background */}
       <div className="absolute inset-0 z-0">
-        <React.Suspense fallback={
-          <div className="w-full h-full bg-gradient-to-br from-[#0a0a0f] via-[#0d1117] to-[#0a0a0f]" />
-        }>
-          <SplineScene scene="https://prod.spline.design/dJqTIQ-tE3ULUPMi/scene.splinecode" />
-        </React.Suspense>
+        <SplineScene scene="https://prod.spline.design/dJqTIQ-tE3ULUPMi/scene.splinecode" />
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/90 via-[#0a0a0f]/50 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-[#0a0a0f]/50" />
