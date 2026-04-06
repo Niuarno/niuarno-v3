@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
-const Globe = dynamic(() => import('@/components/ui/cobe-globe'), { ssr: false });
+const Globe = dynamic(() => import('@/components/ui/cobe-globe').then(m => ({ default: m.Globe })), { ssr: false });
 
 const markers = [
   { id: 'pakistan', location: [30.3753, 69.3451] as [number, number], label: 'Pakistan' },
